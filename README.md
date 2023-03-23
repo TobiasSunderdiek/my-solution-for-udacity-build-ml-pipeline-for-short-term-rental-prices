@@ -1,3 +1,13 @@
+# My solution to the second project of the Udacity Nanodegree: Machine Learning DevOps Engineer
+
+My solution to the project `Build an ML Pipeline for Short-term Rental Prices in NYC` of the Udacity Machine Learning DevOps Engineer Nanodegree https://www.udacity.com/course/machine-learning-dev-ops-engineer-nanodegree--nd0821
+
+Udacity provides the repository https://github.com/udacity/build-ml-pipeline-for-short-term-rental-prices as foundation to solve the above mentioned project and suggests to fork it. Therefore, beside my content for the solution to the project, all credit for the content of this repo go to udacity. Please see the Licence for more details about how to use this repo.
+
+Important note for Udacity students:
+
+Please respect the Udacity Honor Code: https://www.udacity.com/legal/en-eu/honor-code. This repository contains solutions to the Udacity Machine Learning DevOps Engineer Nanodegree. See https://medium.com/@laramartin/why-i-added-licenses-to-my-udacity-projects-3070f602006e for more details why I added this note, and credits to the authoress (Lara Martin) for the idea to mention the honor code in the repository.
+
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
 You are working for a property management company renting rooms and properties for short periods of 
 time on various rental platforms. You need to estimate the typical price for a given property based 
