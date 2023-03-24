@@ -8,6 +8,10 @@ Important note for Udacity students:
 
 Please respect the Udacity Honor Code: https://www.udacity.com/legal/en-eu/honor-code. This repository contains solutions to the Udacity Machine Learning DevOps Engineer Nanodegree. See https://medium.com/@laramartin/why-i-added-licenses-to-my-udacity-projects-3070f602006e for more details why I added this note, and credits to the authoress (Lara Martin) for the idea to mention the honor code in the repository.
 
+# My machine specific setup
+
+- `export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python` in shell environment
+
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
 You are working for a property management company renting rooms and properties for short periods of 
 time on various rental platforms. You need to estimate the typical price for a given property based 
