@@ -28,6 +28,12 @@ def main(args):
     logger.info("Convert row 'last_review' from string to datetime...")
     df['last_review'] = pd.to_datetime(df['last_review'])
 
+    logger.info("Save cleaned dataframe to file and upload to Weights&Biases as {args.output_artifact}...")
+    df.to_csv(args.output_artifact, index=False)
+    artifact = wandb.Artifact(args.output_artifact, type=args.output_type, description=args.output_description)
+    artifact.add_file(args.output_artifact)
+    run.log_artifact(artifact)
+
 if __name__ == "main":
     parser = argparse.ArgumentParser(description="Download, clean and upload artifact")
     parser.add_argument(
