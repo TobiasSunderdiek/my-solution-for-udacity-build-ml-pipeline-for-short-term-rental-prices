@@ -51,7 +51,7 @@ if __name__ == "main":
     parser.add_argument(
         "--output_type",
         type=str,
-        help="Tag which describes outputfile-type. default: clean_data",
+        help="Tag which describes outputfile-type. default: clean_sample",
         required=False
     )
     parser.add_argument(
