@@ -17,7 +17,7 @@ def main(args):
 
     # Download input artifact. This will also log that this script is using this
     # particular version of the artifact
-    logger.info("Download {args.input_artifact} from Weights&Biases...")
+    logger.info("Download {args.input_artifact} from Weights&Biases to temp dir...")
     artifact_local_path = run.use_artifact(args.input_artifact).file()
     df = pd.read_csv(artifact_local_path)
 
@@ -34,7 +34,7 @@ def main(args):
     artifact.add_file(args.output_artifact)
     run.log_artifact(artifact)
 
-if __name__ == "main":
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Download, clean and upload artifact")
     parser.add_argument(
         "--input_artifact",

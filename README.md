@@ -18,6 +18,11 @@ Please respect the Udacity Honor Code: https://www.udacity.com/legal/en-eu/honor
 - for e in $(conda info --envs | grep mlflow | cut -f1 -d" "); do conda uninstall --name $e --all -y;done
 - conda remove -n nyc_airbnb_dev --all
 - conda env create -f environment.yml
+- conda list | grep hydra
+
+wandb_utils not found -> python version to 3.8?
+
+use tempdir
 
 
 

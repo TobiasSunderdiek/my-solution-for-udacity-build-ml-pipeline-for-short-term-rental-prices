@@ -55,7 +55,7 @@ def go(config: DictConfig):
                 os.path.join(hydra.utils.get_original_cwd(), "src", "basic_cleaning"),
                 "main",
                 parameters={
-                    "input_artifact": config["basic_cleaning"]["input_artifact"],
+                    "input_artifact": config["main"]["project_name"]+"/"+config["basic_cleaning"]["input_artifact"],
                     "output_artifact": config["basic_cleaning"]["output_artifact"],
                     "output_type": "clean_sample",
                     "output_description": "Data with outliers removed and date converted",
