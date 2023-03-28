@@ -10,7 +10,24 @@ Please respect the Udacity Honor Code: https://www.udacity.com/legal/en-eu/honor
 
 # My machine specific setup
 
+-still necessary?
 - `export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python` in shell environment
+
+conda:
+- conda info --envs | grep mlflow | cut -f1 -d" "
+- for e in $(conda info --envs | grep mlflow | cut -f1 -d" "); do conda uninstall --name $e --all -y;done
+- conda remove -n nyc_airbnb_dev --all
+- conda env create -f environment.yml
+
+
+- mlflow run . -> numpy-1.24.2 -> errors
+ -- without all versions in conda.yml + environment.yml
+ CHECK
+
+ steps = download
+ CHECK
+
+ run src/eda CHECK
 
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
 You are working for a property management company renting rooms and properties for short periods of 
