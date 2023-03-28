@@ -8,12 +8,12 @@ Important note for Udacity students:
 
 Please respect the Udacity Honor Code: https://www.udacity.com/legal/en-eu/honor-code. This repository contains solutions to the Udacity Machine Learning DevOps Engineer Nanodegree. See https://medium.com/@laramartin/why-i-added-licenses-to-my-udacity-projects-3070f602006e for more details why I added this note, and credits to the authoress (Lara Martin) for the idea to mention the honor code in the repository.
 
-# My machine specific setup
+# Setup
 
--still necessary?
+- `conda env create -f environment.yml`
+
+#todo
 - `export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python` in shell environment
-
-conda:
 - conda info --envs | grep mlflow | cut -f1 -d" "
 - for e in $(conda info --envs | grep mlflow | cut -f1 -d" "); do conda uninstall --name $e --all -y;done
 - conda remove -n nyc_airbnb_dev --all
