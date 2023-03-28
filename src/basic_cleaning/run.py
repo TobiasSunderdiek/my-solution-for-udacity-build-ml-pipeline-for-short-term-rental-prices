@@ -6,6 +6,7 @@ and upload cleaned file as artifact to Weights&Biases
 import argparse
 import logging
 import wandb
+import pandas as pd
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
@@ -16,7 +17,16 @@ def main(args):
 
     # Download input artifact. This will also log that this script is using this
     # particular version of the artifact
+    logger.info("Download {args.input_artifact} from Weights&Biases...")
     artifact_local_path = run.use_artifact(args.input_artifact).file()
+    df = pd.read_csv(artifact_local_path)
+
+    logger.info("Remove outliers from row 'price'. Keep all rows within [{args.min_price}, {args.max_price}]...")
+    idx = df['price'].between(args.min_price, args.max_price)
+    df = df[idx].copy()
+
+    logger.info("Convert row 'last_review' from string to datetime...")
+    df['last_review'] = pd.to_datetime(df['last_review'])
 
 if __name__ == "main":
     parser = argparse.ArgumentParser(description="Download, clean and upload artifact")
