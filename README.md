@@ -11,19 +11,21 @@ Please respect the Udacity Honor Code: https://www.udacity.com/legal/en-eu/honor
 # Setup
 
 - `conda env create -f environment.yml`
+- `conda activate nyc_airbnb_dev`
+- `mlflow run .`
 
 #todo
 - `export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python` in shell environment
 - conda info --envs | grep mlflow | cut -f1 -d" "
 - for e in $(conda info --envs | grep mlflow | cut -f1 -d" "); do conda uninstall --name $e --all -y;done
 - conda remove -n nyc_airbnb_dev --all
-- conda env create -f environment.yml python=3.8
+- conda env create -f environment.yml
 - conda list | grep hydra
 
 #todo
-wandb_utils not found -> python version to 3.8?
-- all version problems fixed? use python version? with pyenv? git credentials changed caused the error?
-
+wandb_utils not found -> no version in environment.yml works not either - independet of hydra-core
+fresh clone works
+clone this repo again?
 
 
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
