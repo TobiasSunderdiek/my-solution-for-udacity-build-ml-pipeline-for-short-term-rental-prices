@@ -55,7 +55,7 @@ def go(config: DictConfig):
                 os.path.join(hydra.utils.get_original_cwd(), "src", "basic_cleaning"),
                 "main",
                 parameters={
-                    "input_artifact": config["main"]["project_name"]+"/"+config["basic_cleaning"]["input_artifact"],
+                    "input_artifact": config["main"]["project_name"]+"/"+config["basic_cleaning"]["input_artifact"]+":"+config["main"]["latest_tag"],
                     "output_artifact": config["basic_cleaning"]["output_artifact"],
                     "output_type": "clean_sample",
                     "output_description": "Data with outliers removed and date converted",
@@ -65,10 +65,17 @@ def go(config: DictConfig):
             )
 
         if "data_check" in active_steps:
-            ##################
-            # Implement here #
-            ##################
-            pass
+            mlflow.run(
+                os.path.join(hydra.utils.get_original_cwd(), "src", "data_check"),
+                "main",
+                parameters={
+                    "csv": config["main"]["project_name"]+"/"+config["basic_cleaning"]["output_artifact"]+":"+config["main"]["latest_tag"],
+                    "ref": config["main"]["project_name"]+"/"+config["basic_cleaning"]["output_artifact"]+":"+config["main"]["reference_tag"],
+                    "kl_threshold": config["data_check"]["kl_threshold"],
+                    "min_price": config["etl"]["min_price"],
+                    "max_price": config["etl"]["max_price"]
+                }
+            )
 
         if "data_split" in active_steps:
             ##################
