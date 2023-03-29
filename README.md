@@ -17,12 +17,12 @@ Please respect the Udacity Honor Code: https://www.udacity.com/legal/en-eu/honor
 - conda info --envs | grep mlflow | cut -f1 -d" "
 - for e in $(conda info --envs | grep mlflow | cut -f1 -d" "); do conda uninstall --name $e --all -y;done
 - conda remove -n nyc_airbnb_dev --all
-- conda env create -f environment.yml
+- conda env create -f environment.yml python=3.8
 - conda list | grep hydra
 
+#todo
 wandb_utils not found -> python version to 3.8?
-
-use tempdir
+- all version problems fixed? use python version? with pyenv? git credentials changed caused the error?
 
 
 

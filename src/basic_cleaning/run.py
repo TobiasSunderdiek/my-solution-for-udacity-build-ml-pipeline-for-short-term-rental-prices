@@ -7,6 +7,8 @@ import argparse
 import logging
 import wandb
 import pandas as pd
+import os
+import tempfile
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
@@ -29,10 +31,14 @@ def main(args):
     df['last_review'] = pd.to_datetime(df['last_review'])
 
     logger.info("Save cleaned dataframe to file and upload to Weights&Biases as {args.output_artifact}...")
-    df.to_csv(args.output_artifact, index=False)
-    artifact = wandb.Artifact(args.output_artifact, type=args.output_type, description=args.output_description)
-    artifact.add_file(args.output_artifact)
-    run.log_artifact(artifact)
+    with tempfile.TemporaryDirectory() as tempdir:
+        temppath = os.path.join(tempdir, args.output_artifact)
+        df.to_csv(temppath, index=False)
+        artifact = wandb.Artifact(args.output_artifact, type=args.output_type, description=args.output_description)
+        artifact.add_file(temppath)
+        run.log_artifact(artifact)
+        # Credits to/Hint from the course: Wait for the artifact to be uploaded before tempDir will be destroyed
+        artifact.wait()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Download, clean and upload artifact")
