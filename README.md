@@ -23,7 +23,21 @@ Please respect the Udacity Honor Code: https://www.udacity.com/legal/en-eu/honor
 - conda list | grep hydra
 
 #todo 
-wandb broken pipe -> only for new data - only at initial run
+- wandb broken pipe -> only for new data - only at initial run wandb==0.13.11?
+wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+- notebook comment cells
+- data cleaning: Update all parameters: Add docstrings and the proper type to all parameters, both in the script and in the MLproject file.
+- train random forest: clear comments for 
+Download the train data using W&B.
+In the get_inference_pipeline function, implement a pipeline called non_ordinal_categorical_preproc with two steps: a SimpleImputer(strategy="most_frequent") and a OneHotEncoder() step
+In the get_inference_pipeline function, create the inference pipeline called sk_pipe containing the preprocessing step and the Random Forest
+In the go function, fit the pipeline.
+In the go function, export the pipeline using MLFlow model export.
+Upload the artifact to W&B
+Log the variable MAE to W&B
 
 #todo
 check exercises
@@ -38,6 +52,7 @@ delete exercise repo in company github
  - re-run whole pipeline
  - train
  - hp-tune and re-run
+ mlflow run . -P hydra_options="modeling.max_tfidf_features=10,15,30 modeling.random_forest.max_features=0.1,0.33,0.5,0.75,1 -m"
 
 
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
