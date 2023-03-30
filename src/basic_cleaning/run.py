@@ -30,6 +30,10 @@ def main(args):
     logger.info("Convert row 'last_review' from string to datetime...")
     df['last_review'] = pd.to_datetime(df['last_review'])
 
+    logger.info("Remove places which are not within proper location boundaries")
+    idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
+    df = df[idx].copy()
+
     logger.info(f"Save cleaned dataframe to file and upload to Weights&Biases as {args.output_artifact}...")
     with tempfile.TemporaryDirectory() as tempdir:
         temppath = os.path.join(tempdir, args.output_artifact)
