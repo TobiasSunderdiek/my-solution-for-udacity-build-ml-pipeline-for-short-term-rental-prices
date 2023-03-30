@@ -31,6 +31,11 @@ wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
 BrokenPipeError: [Errno 32] Broken pipe
 ```
 It seems after the error all went fine (mlflow succeeded).
+
+# My Weights&Biases project
+
+Find my project here: https://wandb.ai/sunderdiek/nyc_airbnb?workspace=user-sunderdiek
+
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
 You are working for a property management company renting rooms and properties for short periods of 
 time on various rental platforms. You need to estimate the typical price for a given property based 
