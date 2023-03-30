@@ -22,10 +22,11 @@ Please respect the Udacity Honor Code: https://www.udacity.com/legal/en-eu/honor
 - conda env create -f environment.yml
 - conda list | grep hydra
 
+#todo 
+wandb broken pipe -> only for new data - only at initial run
+
 #todo
 check exercises
-fresh clone works
-wandb broken pipe -> only for new data -< delete all data in wandb>
 wandb login back to company
 conda deinstall
 delete exercise repo in company github
@@ -33,7 +34,7 @@ delete exercise repo in company github
 - after delete:
  - re-run donwload step
  - manually re-run eda
- - mark artifact
+ - mark artifact clean_sample as reference
  - re-run whole pipeline
  - train
  - hp-tune and re-run
