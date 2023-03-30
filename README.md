@@ -12,7 +12,16 @@ Please respect the Udacity Honor Code: https://www.udacity.com/legal/en-eu/honor
 
 - `conda env create -f environment.yml`
 - `conda activate nyc_airbnb_dev`
-- `mlflow run .`
+
+Init data:
+1. `mlflow run . -P steps=download` to fetch sample data
+2. `mlflow run . -P steps=basic_cleaning` to upload cleaned data to W&B
+3. In W&B, tag artifact `clean_sample.csv` with `reference`
+4. Run whole pipeline with `mlflow run .` , do hyperparameter tuning if wanted and tag best model in W&B with `prod`
+
+Manual available steps:
+- `mlflow run src/eda` run jupyter lab to analyze data.
+- `mlflow run . -P steps=test_regression_model`. Provide a model with tag `prod` in W&B for this steps.
 
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
 You are working for a property management company renting rooms and properties for short periods of 
