@@ -23,6 +23,7 @@ import wandb
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error
 from sklearn.pipeline import Pipeline, make_pipeline
+from mlflow.models import infer_signature
 
 
 def delta_date_feature(dates):
@@ -54,7 +55,7 @@ def go(args):
     ######################################
     # Use run.use_artifact(...).file() to get the train and validation artifact (args.trainval_artifact)
     # and save the returned path in train_local_pat
-    trainval_local_path = # YOUR CODE HERE
+    trainval_local_path = run.use_artifact(args.trainval_artifact).file()
     ######################################
 
     X = pd.read_csv(trainval_local_path)
@@ -76,6 +77,7 @@ def go(args):
     ######################################
     # Fit the pipeline sk_pipe by calling the .fit method on X_train and y_train
     # YOUR CODE HERE
+    sk_pipe.fit(X_train, y_train)
     ######################################
 
     # Compute r2 and MAE
@@ -97,7 +99,13 @@ def go(args):
     ######################################
     # Save the sk_pipe pipeline as a mlflow.sklearn model in the directory "random_forest_dir"
     # HINT: use mlflow.sklearn.save_model
-    # YOUR CODE HERE
+    export_path = os.path.join("random_forest_dir", args.output_artifact)
+    signature = infer_signature(X_val, y_pred)
+    mlflow.sklearn.save_model(sk_pipe,
+                              path=export_path,
+                              serialization_format=mlflow.sklearn.SERIALIZATION_FORMAT_ClOUDPICKLE,
+                              signature=signature,
+                              input_example=X_val.iloc[:2])
     ######################################
 
     ######################################
@@ -106,7 +114,12 @@ def go(args):
     # type, provide a description and add rf_config as metadata. Then, use the .add_dir method of the artifact instance
     # you just created to add the "random_forest_dir" directory to the artifact, and finally use
     # run.log_artifact to log the artifact to the run
-    # YOUR CODE HERE
+    artifact = wandb.Artifact(args.output_artifact,
+                              type="model_export",
+                              description="Pipeline with preprocessing and random forest regressor",
+                              metadata=rf_config)
+    artifact.add_dir(export_path)
+    run.log_artifact(artifact)
     ######################################
 
     # Plot feature importance
@@ -210,21 +223,23 @@ def get_inference_pipeline(rf_config, max_tfidf_features):
     processed_features = ordinal_categorical + non_ordinal_categorical + zero_imputed + ["last_review", "name"]
 
     # Create random forest
-    random_Forest = RandomForestRegressor(**rf_config)
+    random_forest = RandomForestRegressor(**rf_config)
 
     ######################################
     # Create the inference pipeline. The pipeline must have 2 steps: a step called "preprocessor" applying the
     # ColumnTransformer instance that we saved in the `preprocessor` variable, and a step called "random_forest"
     # with the random forest instance that we just saved in the `random_forest` variable.
     # HINT: Use the explicit Pipeline constructor so you can assign the names to the steps, do not use make_pipeline
-    sk_pipe = # YOUR CODE HERE
+    sk_pipe = Pipeline(steps=[
+        ("preprocessor", preprocessor),
+        ("random_forest", random_forest)
+    ])
 
     return sk_pipe, processed_features
 
-
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="Basic cleaning of dataset")
+    parser = argparse.ArgumentParser(description="Train random forest")
 
     parser.add_argument(
         "--trainval_artifact",

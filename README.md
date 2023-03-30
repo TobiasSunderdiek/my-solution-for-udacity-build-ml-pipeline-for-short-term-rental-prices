@@ -23,9 +23,20 @@ Please respect the Udacity Honor Code: https://www.udacity.com/legal/en-eu/honor
 - conda list | grep hydra
 
 #todo
-wandb_utils not found -> no version in environment.yml works not either - independet of hydra-core
+check exercises
 fresh clone works
-clone this repo again?
+wandb broken pipe -> only for new data -< delete all data in wandb>
+wandb login back to company
+conda deinstall
+delete exercise repo in company github
+
+- after delete:
+ - re-run donwload step
+ - manually re-run eda
+ - mark artifact
+ - re-run whole pipeline
+ - train
+ - hp-tune and re-run
 
 
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
