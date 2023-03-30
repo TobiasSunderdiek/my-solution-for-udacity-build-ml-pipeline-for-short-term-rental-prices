@@ -55,6 +55,9 @@ def go(args):
     ######################################
     # Use run.use_artifact(...).file() to get the train and validation artifact (args.trainval_artifact)
     # and save the returned path in train_local_pat
+
+    # Download artifact which contains training and validation data from W&B
+    # and save it locally
     trainval_local_path = run.use_artifact(args.trainval_artifact).file()
     ######################################
 
@@ -77,6 +80,8 @@ def go(args):
     ######################################
     # Fit the pipeline sk_pipe by calling the .fit method on X_train and y_train
     # YOUR CODE HERE
+
+    # Fit pipeline
     sk_pipe.fit(X_train, y_train)
     ######################################
 
@@ -99,6 +104,8 @@ def go(args):
     ######################################
     # Save the sk_pipe pipeline as a mlflow.sklearn model in the directory "random_forest_dir"
     # HINT: use mlflow.sklearn.save_model
+
+    # Export pipeline including meta information as scikit-learn model
     export_path = os.path.join("random_forest_dir", args.output_artifact)
     signature = infer_signature(X_val, y_pred)
     mlflow.sklearn.save_model(sk_pipe,
@@ -114,6 +121,8 @@ def go(args):
     # type, provide a description and add rf_config as metadata. Then, use the .add_dir method of the artifact instance
     # you just created to add the "random_forest_dir" directory to the artifact, and finally use
     # run.log_artifact to log the artifact to the run
+
+    # Upload inference artifact to W&B
     artifact = wandb.Artifact(args.output_artifact,
                               type="model_export",
                               description="Pipeline with preprocessing and random forest regressor",
@@ -129,7 +138,9 @@ def go(args):
     # Here we save r_squared under the "r2" key
     run.summary['r2'] = r_squared
     # Now log the variable "mae" under the key "mae".
-    # YOUR CODE HERE
+
+    # Save mean absolute error under "mae" key at W&B
+    run.summary['mae'] = mae
     ######################################
 
     # Upload to W&B the feture importance visualization
@@ -171,6 +182,9 @@ def get_inference_pipeline(rf_config, max_tfidf_features):
     # Build a pipeline with two steps:
     # 1 - A SimpleImputer(strategy="most_frequent") to impute missing values
     # 2 - A OneHotEncoder() step to encode the variable
+
+    # Create pipeline for column 'neighbourhood_group' which imputes missing values
+    # and does one-hot-encoding of this category
     non_ordinal_categorical_preproc = make_pipeline(SimpleImputer(strategy="most_frequent"), OneHotEncoder())
     ######################################
 
@@ -230,6 +244,8 @@ def get_inference_pipeline(rf_config, max_tfidf_features):
     # ColumnTransformer instance that we saved in the `preprocessor` variable, and a step called "random_forest"
     # with the random forest instance that we just saved in the `random_forest` variable.
     # HINT: Use the explicit Pipeline constructor so you can assign the names to the steps, do not use make_pipeline
+
+    # Pipeline for inference artifact. Contains preprocessing of input data and random forest regressor
     sk_pipe = Pipeline(steps=[
         ("preprocessor", preprocessor),
         ("random_forest", random_forest)
