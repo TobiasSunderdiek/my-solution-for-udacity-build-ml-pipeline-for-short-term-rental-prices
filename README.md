@@ -36,6 +36,10 @@ It seems after the error all went fine (mlflow succeeded).
 
 Find my project here: https://wandb.ai/sunderdiek/nyc_airbnb?workspace=user-sunderdiek
 
+# My github project
+
+If not viewing this on github, find my project here: https://github.com/TobiasSunderdiek/my-solution-for-udacity-build-ml-pipeline-for-short-term-rental-prices
+
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
 You are working for a property management company renting rooms and properties for short periods of 
 time on various rental platforms. You need to estimate the typical price for a given property based 
