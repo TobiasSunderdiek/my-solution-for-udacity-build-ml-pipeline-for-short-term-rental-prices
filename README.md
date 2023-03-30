@@ -14,37 +14,6 @@ Please respect the Udacity Honor Code: https://www.udacity.com/legal/en-eu/honor
 - `conda activate nyc_airbnb_dev`
 - `mlflow run .`
 
-#todo
-- `export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python` in shell environment
-- conda info --envs | grep mlflow | cut -f1 -d" "
-- for e in $(conda info --envs | grep mlflow | cut -f1 -d" "); do conda uninstall --name $e --all -y;done
-- conda remove -n nyc_airbnb_dev --all
-- conda env create -f environment.yml
-- conda list | grep hydra
-
-#todo 
-- wandb broken pipe -> only for new data - only at initial run wandb==0.13.11?
-wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
-    sent = self._sock.send(data)
-BrokenPipeError: [Errno 32] Broken pipe
-
-
-#todo
-check exercises
-wandb login back to company
-conda deinstall
-delete exercise repo in company github
-
-- after delete:
- - re-run donwload step
- - manually re-run eda
- - mark artifact clean_sample as reference
- - re-run whole pipeline
- - train
- - hp-tune and re-run
- mlflow run . -P hydra_options="modeling.max_tfidf_features=10,15,30 modeling.random_forest.max_features=0.1,0.33,0.5,0.75,1 -m"
-
-
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
 You are working for a property management company renting rooms and properties for short periods of 
 time on various rental platforms. You need to estimate the typical price for a given property based 
